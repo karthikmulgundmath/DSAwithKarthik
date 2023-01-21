@@ -81,35 +81,37 @@
 //========================Linked List==============================
 
 
-class Node{
-    constructor(value){
-        this.value=value
-        this.next=null;
+class Node {
+    constructor(value) {
+        this.value = value
+        this.next = null;
     }
 }
-class LinkedList{
-    constructor(value){
-        const node=new Node(value);
-        this.head=node;
-        this.tail=this.head;
-        this.length=1;
+class LinkedList {
+    constructor(value) {
+        const node = new Node(value);
+        this.head = node;
+        this.tail = this.head;
+        this.length = 1;
     }
-    push(value){
-            const node=new Node(value);
-            if(!this.head){
-                this.head=node;
-                this.tail=this.head;
-            }
-            else{
-                this.tail.next=node;
-                this.tail=node;
-            }
-            this.length++;
-            return this;
+    push(value) {
+        const node = new Node(value);
+        if (!this.head) {
+            this.head = node;
+            this.tail = this.head;
+        }
+        else {
+            this.tail.next = node;
+            this.tail = node;
+        }
+        this.length++;
+        return this;
     }
 }
 
 
-const linked=new LinkedList(4)
+const linked = new LinkedList(4)
 linked.push(8)
 console.log(linked);
+
+
