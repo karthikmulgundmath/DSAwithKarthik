@@ -89,12 +89,20 @@ class Node {
 }
 class LinkedList {
     constructor(value) {
+        if(!value){
+            this.length=0;
+            return console.error("Cannot create a linked list without a value");
+        }
         const node = new Node(value);
         this.head = node;
         this.tail = this.head;
         this.length = 1;
     }
     push(value) {
+        if(!value){
+            this.length=this.length;
+            return console.error("Cannot create a linked list without a value");
+        }
         const node = new Node(value);
         if (!this.head) {
             this.head = node;
@@ -107,11 +115,38 @@ class LinkedList {
         this.length++;
         return this;
     }
+    pop() {
+        if (!(this.head) || (this.length === 0)) {
+            return undefined
+        }
+        let temp = this.head;
+        let prev = this.head;
+        while (temp.next) {
+            prev = temp;
+            temp = temp.next;
+        }
+        this.tail = prev;
+        this.tail.next = null;
+        this.length--;
+        if (this.length === 0) {
+            this.head = null;
+            this.tail = null;
+        }
+        return temp;
+    }
 }
 
 
-const linked = new LinkedList(4)
-linked.push(8)
-console.log(linked);
+const linked = new LinkedList(1)
+linked.push(2)
+linked.push("Karthik")
+linked.push("Lallimaa")
+linked.push("hahaha")
+console.log(linked.pop());
+console.log(JSON.stringify(linked));
 
+//testing pop case
+const linked2 = new LinkedList(1)
+linked2.pop();
+console.log(JSON.stringify(linked2));
 
