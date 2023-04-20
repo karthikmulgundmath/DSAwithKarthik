@@ -89,8 +89,8 @@ class Node {
 }
 class LinkedList {
     constructor(value) {
-        if(!value){
-            this.length=0;
+        if (!value) {
+            this.length = 0;
             return console.error("Cannot create a linked list without a value");
         }
         const node = new Node(value);
@@ -99,8 +99,8 @@ class LinkedList {
         this.length = 1;
     }
     push(value) {
-        if(!value){
-            this.length=this.length;
+        if (!value) {
+            this.length = this.length;
             return console.error("Cannot create a linked list without a value");
         }
         const node = new Node(value);
@@ -134,6 +134,34 @@ class LinkedList {
         }
         return temp;
     }
+    unshift(value) {
+        if (!value) {
+            this.length = this.length;
+            return console.error("Cannot create a linked list without a value");
+        }
+        const newNode = new Node(value)
+        if (!this.head) {
+            this.head = newNode;
+            this.tail = newNode;
+        }
+        else {
+            newNode.next = this.head;
+            this.head = newNode;
+        }
+        this.length++;
+        return this
+    }
+    shift(){
+        if(!this.head)return undefined;
+        let temp = this.head
+        this.head = this.head.next;
+        temp.next =null;
+        this.length--
+        if(this.length===0){
+            this.tail = null
+        }
+        return temp
+    }
 }
 
 
@@ -142,11 +170,13 @@ linked.push(2)
 linked.push("Karthik")
 linked.push("Lallimaa")
 linked.push("hahaha")
+linked.unshift("K")
+linked.shift()
 console.log(linked.pop());
 console.log(JSON.stringify(linked));
 
 //testing pop case
-const linked2 = new LinkedList(1)
-linked2.pop();
-console.log(JSON.stringify(linked2));
+// const linked2 = new LinkedList(1)
+// linked2.pop();
+// console.log(JSON.stringify(linked2));
 
