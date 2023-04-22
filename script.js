@@ -116,6 +116,7 @@ class LinkedList {
         return this;
     }
     pop() {
+        console.log("Pop called");
         if (!(this.head) || (this.length === 0)) {
             return undefined
         }
@@ -125,6 +126,8 @@ class LinkedList {
             prev = temp;
             temp = temp.next;
         }
+        
+        console.log('prev', prev)
         this.tail = prev;
         this.tail.next = null;
         this.length--;
@@ -162,6 +165,80 @@ class LinkedList {
         }
         return temp
     }
+    get(index){
+      if(index<0||index>=this.length){
+        return "Not Possible"
+      }
+      else{
+        let temp=this.head;
+        for(let i=0;i<index;i++){
+            temp=temp.next;
+        }
+        return temp
+      }
+    }
+    set(index,value){
+        console.log("---->",index,value);
+        let temp=this.get(index);
+        if(temp){
+            temp.value=value
+            return true
+        }
+        return false
+    }
+    insert(index,value){
+        if(index===0){
+            return this.unshift(value)
+        }
+        if(index>this.length){
+            return this.push(value)
+        }
+        if(index<0||index>=this.length){
+            return undefined
+        }
+        else{
+            const newNode = new Node(value);
+            let temp = this.get(index-1);
+            newNode.next = temp.next
+            temp.next = newNode
+            this.length++;
+            return true
+        }
+    }
+    remove(index){
+        console.log("length------>",this.length-1);
+        if(index===0){
+            return this.shift()
+        }
+        if(index>this.length){
+            return this.pop()
+        }
+        if(index<0||index>=this.length){
+            return undefined
+        }
+        else{
+            let prev=this.get(index-1);
+            let deleteNode = prev.next
+            prev.next = deleteNode.next;
+            deleteNode.next=null
+            this.length--
+            return deleteNode
+        }
+    }
+    reverse(){
+        let temp = this.head;
+        this.head = this.tail;
+        this.tail = temp;
+        let next =temp.next;
+        let prev = null;
+        for(let i=0;i<this.length;i++){
+            next = temp.next;
+            temp.next = prev;//reverse the pointer
+            prev = temp;
+            temp = next;
+        }
+        return this
+    }
 }
 
 
@@ -170,10 +247,17 @@ linked.push(2)
 linked.push("Karthik")
 linked.push("Lallimaa")
 linked.push("hahaha")
-linked.unshift("K")
-linked.shift()
-console.log(linked.pop());
-console.log(JSON.stringify(linked));
+console.log("Before===>",JSON.stringify(linked));
+
+// linked.unshift("K")
+// linked.shift()
+// console.log(linked.pop());
+// console.log(linked.get(3))
+// linked.set(1,"mulagundmath")
+// linked.insert(4,"Ann Apple")
+// console.log(linked.remove(5))
+linked.reverse()
+console.log("After===>",JSON.stringify(linked));
 
 //testing pop case
 // const linked2 = new LinkedList(1)
