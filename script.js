@@ -81,12 +81,12 @@
 //========================Linked List==============================
 
 
-class Node {
-    constructor(value) {
-        this.value = value
-        this.next = null;
-    }
-}
+// class Node {
+//     constructor(value) {
+//         this.value = value
+//         this.next = null;
+//     }
+// }
 class LinkedList {
     constructor(value) {
         if (!value) {
@@ -242,12 +242,12 @@ class LinkedList {
 }
 
 
-const linked = new LinkedList(1)
-linked.push(2)
-linked.push("Karthik")
-linked.push("Lallimaa")
-linked.push("hahaha")
-console.log("Before===>",JSON.stringify(linked));
+// const linked = new LinkedList(1)
+// linked.push(2)
+// linked.push("Karthik")
+// linked.push("Lallimaa")
+// linked.push("hahaha")
+// console.log("Before===>",JSON.stringify(linked));
 
 // linked.unshift("K")
 // linked.shift()
@@ -256,11 +256,29 @@ console.log("Before===>",JSON.stringify(linked));
 // linked.set(1,"mulagundmath")
 // linked.insert(4,"Ann Apple")
 // console.log(linked.remove(5))
-linked.reverse()
-console.log("After===>",JSON.stringify(linked));
+// linked.reverse()
+// console.log("After===>",JSON.stringify(linked));
 
 //testing pop case
 // const linked2 = new LinkedList(1)
 // linked2.pop();
 // console.log(JSON.stringify(linked2));
 
+
+class Node {
+    constructor(value) {
+        this.value = value
+        this.next = null;
+        this.prev = null;
+    }
+}
+class DoublyLinkedList{
+    constructor(value){
+        const newNode = new Node(value);
+        this.head = newNode;
+        this.tail = this.head;
+        this.length=1
+    }
+}
+let dll = new DoublyLinkedList(1)
+console.log('dll', dll)
