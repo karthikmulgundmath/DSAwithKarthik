@@ -279,6 +279,23 @@ class DoublyLinkedList{
         this.tail = this.head;
         this.length=1
     }
+    push(value){
+        const newNode = new Node(value);
+        if(!this.head || this.length===0){
+            this.head = newNode;
+            this.tail = newNode;
+        }
+        else{
+            this.tail.next = newNode;
+            newNode.prev = this.tail 
+            this.tail = newNode;
+        }
+        this.length++;
+        return this
+    }
+    
 }
 let dll = new DoublyLinkedList(1)
-console.log('dll', dll)
+dll.push(2)
+dll.push("lalli")
+console.log('dll',dll)
