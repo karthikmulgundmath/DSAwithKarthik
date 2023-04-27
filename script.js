@@ -126,7 +126,7 @@ class LinkedList {
             prev = temp;
             temp = temp.next;
         }
-        
+
         console.log('prev', prev)
         this.tail = prev;
         this.tail.next = null;
@@ -154,84 +154,84 @@ class LinkedList {
         this.length++;
         return this
     }
-    shift(){
-        if(!this.head)return undefined;
+    shift() {
+        if (!this.head) return undefined;
         let temp = this.head
         this.head = this.head.next;
-        temp.next =null;
+        temp.next = null;
         this.length--
-        if(this.length===0){
+        if (this.length === 0) {
             this.tail = null
         }
         return temp
     }
-    get(index){
-      if(index<0||index>=this.length){
-        return "Not Possible"
-      }
-      else{
-        let temp=this.head;
-        for(let i=0;i<index;i++){
-            temp=temp.next;
+    get(index) {
+        if (index < 0 || index >= this.length) {
+            return "Not Possible"
         }
-        return temp
-      }
+        else {
+            let temp = this.head;
+            for (let i = 0; i < index; i++) {
+                temp = temp.next;
+            }
+            return temp
+        }
     }
-    set(index,value){
-        console.log("---->",index,value);
-        let temp=this.get(index);
-        if(temp){
-            temp.value=value
+    set(index, value) {
+        console.log("---->", index, value);
+        let temp = this.get(index);
+        if (temp) {
+            temp.value = value
             return true
         }
         return false
     }
-    insert(index,value){
-        if(index===0){
+    insert(index, value) {
+        if (index === 0) {
             return this.unshift(value)
         }
-        if(index>this.length){
+        if (index > this.length) {
             return this.push(value)
         }
-        if(index<0||index>=this.length){
+        if (index < 0 || index >= this.length) {
             return undefined
         }
-        else{
+        else {
             const newNode = new Node(value);
-            let temp = this.get(index-1);
+            let temp = this.get(index - 1);
             newNode.next = temp.next
             temp.next = newNode
             this.length++;
             return true
         }
     }
-    remove(index){
-        console.log("length------>",this.length-1);
-        if(index===0){
+    remove(index) {
+        console.log("length------>", this.length - 1);
+        if (index === 0) {
             return this.shift()
         }
-        if(index>this.length){
+        if (index > this.length) {
             return this.pop()
         }
-        if(index<0||index>=this.length){
+        if (index < 0 || index >= this.length) {
             return undefined
         }
-        else{
-            let prev=this.get(index-1);
+        else {
+            let prev = this.get(index - 1);
             let deleteNode = prev.next
             prev.next = deleteNode.next;
-            deleteNode.next=null
+            deleteNode.next = null
             this.length--
             return deleteNode
         }
     }
-    reverse(){
+    reverse() {
         let temp = this.head;
         this.head = this.tail;
         this.tail = temp;
-        let next =temp.next;
+        let next = temp.next;
         let prev = null;
-        for(let i=0;i<this.length;i++){
+        for (let i = 0; i < this.length; i++) {
             next = temp.next;
             temp.next = prev;//reverse the pointer
             prev = temp;
@@ -272,30 +272,61 @@ class Node {
         this.prev = null;
     }
 }
-class DoublyLinkedList{
-    constructor(value){
+class DoublyLinkedList {
+    constructor(value) {
         const newNode = new Node(value);
         this.head = newNode;
         this.tail = this.head;
-        this.length=1
+        this.length = 1
     }
-    push(value){
+    push(value) {
         const newNode = new Node(value);
-        if(!this.head || this.length===0){
+        if (!this.head || this.length === 0) {
             this.head = newNode;
             this.tail = newNode;
         }
-        else{
+        else {
             this.tail.next = newNode;
-            newNode.prev = this.tail 
+            newNode.prev = this.tail
             this.tail = newNode;
         }
         this.length++;
         return this
     }
-    
+    pop() {
+        if (this.length === 0) {
+            return undefined;
+        }
+        let temp = this.tail;
+        this.tail = this.tail.prev;
+        this.tail.next = null;
+        temp.prev = null;
+        this.length--
+        if (this.length === 1) {
+            this.head = null;
+            this.tail = null;
+        }
+        return this
+    }
+    unshift(value) {
+        let newNode = new Node(value)
+        if (this.length === 0) {
+            this.head = newNode;
+            this.tail = newNode;
+        }
+        else {
+            newNode.next = this.head;
+            this.head.prev = newNode;
+            this.head = newNode
+        }
+        this.length--
+        return this
+    }
+
 }
 let dll = new DoublyLinkedList(1)
-dll.push(2)
 dll.push("lalli")
-console.log('dll',dll)
+dll.push(2)
+dll.pop();
+dll.unshift("Karthik")
+console.log('dll', dll)
