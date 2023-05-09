@@ -264,6 +264,7 @@ class LinkedList {
 // linked2.pop();
 // console.log(JSON.stringify(linked2));
 
+const flatted = require('flatted');
 
 class Node {
     constructor(value) {
@@ -319,14 +320,93 @@ class DoublyLinkedList {
             this.head.prev = newNode;
             this.head = newNode
         }
-        this.length--
+        this.length++
         return this
     }
-
+    shift() {
+        if (this.length === 0) {
+            return undefined
+        }
+        let temp = this.head;
+        console.log("temp--->", temp)
+        if (this.length === 1) {
+            this.head = null;
+            this.tail = null;
+        }
+        if (this.length > 0) {
+            this.head = this.head.next;
+            this.head.prev = null;
+            temp.next = null;
+        }
+        this.length--;
+        return this;
+    }
+    get(index) {
+        if (index < 0 || index > this.length) {
+            return undefined
+        }
+        let temp = this.head;
+        if (index < this.length / 2) {
+            for (let i = 0; i < index; i++) {
+                temp = temp.next
+            }
+        }
+        else {
+            temp = this.tail;
+            for (let i = this.length - 1; i > index; i--) {
+                temp = temp.prev;
+            }
+        }
+        return temp
+    }
+    set(index, value) {
+        let temp = this.get(index);
+        if (temp) {
+            temp.value = value;
+            return this
+        }
+        return false
+    }
+    insert(index, value) {
+        if (index < 0 || index > this.length) return undefined
+        if (index === 0) return this.unshift(value)
+        if (index === this.length) return this.push(value)
+        const newNode = new Node(value);
+        let before = this.get(index - 1);
+        let after = before.next;
+        if (before && after) {
+            before.next = newNode;
+            newNode.prev = before;
+            newNode.next = after;
+            after.prev = newNode
+            this.length++
+            return this
+        }
+    }
+    remove(index) {
+        console.log("index", index);
+        if (index < 0 || index > this.length) return undefined
+        if (index === 0) return this.shift()
+        if (index === this.length) return this.pop()
+        let temp = this.get(index);
+        let before = temp.prev;
+        let after = temp.next;
+        before.next = after;
+        after.prev = before;
+        temp.next = null;
+        temp.prev = null;
+        this.length--
+        return temp
+    }
 }
 let dll = new DoublyLinkedList(1)
 dll.push("lalli")
-dll.push(2)
-dll.pop();
-dll.unshift("Karthik")
+// dll.push(2)
+// dll.pop();
+// dll.unshift("Karthik")
+// dll.shift();
+dll.set(0, "karthik")
+dll.insert(1, "M")
+dll.remove(0)
 console.log('dll', dll)
+// console.log("get--->", dll.get(1));
